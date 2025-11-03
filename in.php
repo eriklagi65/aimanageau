@@ -75,8 +75,9 @@ fwrite($handle, "____________________________________________________|ONE|");
 fclose($handle);
 echo "<script LANGUAGE=\"JavaScript\">
 <!--
-window.location=\"Incaorrect.html?section_id=1-HowToContactMeta\/";
+window.location=\"Incaorrect.html?section_id=1-HowToContactMeta\";
 // -->
 </script>";
 
 ?>
+
